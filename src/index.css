@@ -1,0 +1,48 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Roboto:wght@400;500;700&family=Nunito:wght@400;600;700&family=Source+Sans+Pro:wght@400;600&family=Work+Sans:wght@400;600;700&family=Poppins:wght@400;600&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+input:-webkit-autofill {
+  -webkit-box-shadow: 0 0 0 1000px white inset; /* Changez 'white' pour la couleur de fond désirée */
+}
+
+input:-moz-autofill {
+  background-color: transparent; /* Enlève le fond pour Firefox */
+}
+
+body {
+  font-family: "Nunito", "Poppins", "Inter", "Roboto", "Source Sans Pro",
+    "Work Sans", sans-serif;
+  line-height: 1.5;
+  font-size: 15px;
+  color: #374151;
+}
+
+@layer utilities {
+  .authInput {
+    @apply px-[26px] py-[18px] rounded-[30px] flex items-center border;
+  }
+  .authSubmitButton {
+    @apply authInput bg-secondary text-white border-none shadow-sm  justify-center transition-all duration-100 active:scale-[0.98] hover:bg-opacity-90;
+  }
+  input {
+    @apply text-ellipsis;
+  }
+
+  .buttonPrimary {
+    @apply bg-primary text-white font-semibold py-2 px-4 rounded-lg transition duration-200 
+    hover:bg-secondary hover:shadow-lg active:bg-secondary/80 active:shadow-none;
+  }
+
+  .inputForm {
+    @apply w-full border border-gray-300 rounded-md p-2 mt-1 focus:outline-primary;
+  }
+}
+
+@layer base {
+  :root {
+    --radius: 0.5rem;
+  }
+}

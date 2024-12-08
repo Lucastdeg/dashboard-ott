@@ -1,39 +1,43 @@
-import React, { useState } from 'react'
-import { Route, Routes, NavLink, Navigate } from 'react-router-dom'
+import { useState } from "react";
+import { LoggedLayout } from "./layouts/LoggedLayout";
+import { UnloggedLayout } from "./layouts/UnloggedLayout";
 
-import { Router } from './Router'
-import { Login } from './Login'
-import { Register } from './Register'
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 export const App = () => {
-    const [loged, setLoged] = useState('')
-    const [user, setUser] = useState(null)
-    const [token, setToken] = useState('')
-    return (
-        <div className='total-page'>
-            {loged !== 'loged' ?
+  const [loged, setLoged] = useState("");
+  const [user, setUser] = useState(null);
+  const [token, setToken] = useState("");
 
-                <>
-                    <div className='log-container'>
-                        <div className='navigate-register-login'>
-                            <NavLink to='/login' className='btn-update btn-register'>Login</NavLink>
-                            <NavLink to='/register' className='btn-update btn-register'>Regístrate</NavLink>
-                        </div>
-                        <Routes>
-                            <Route path='/*' element={<Navigate to='/' />}></Route>
-                            <Route path='/' element={<Login setLoged={setLoged} setUser={setUser} setToken={setToken}></Login>}></Route>
-                            <Route path='/login' element={<Login setLoged={setLoged} setUser={setUser} setToken={setToken}></Login>}></Route>
-                            <Route path='/register' element={<Register />}></Route>
-                        </Routes>
-                    </div>
-                </>
-                :
+  return (
+    <div className="min-h-screen ">
+      {loged === "loged" ? (
+        <LoggedLayout
+          setLoged={setLoged}
+          user={user}
+          token={token}
+        ></LoggedLayout>
+      ) : (
+        <UnloggedLayout
+          setLoged={setLoged}
+          setUser={setUser}
+          setToken={setToken}
+        ></UnloggedLayout>
+      )}
 
-                <Router setLoged={setLoged} user={user} token={token}></Router>
-
-
-            }
-
-        </div>
-    )
-}
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+      />
+    </div>
+  );
+};
