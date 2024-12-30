@@ -5,6 +5,7 @@ const filtersOptions = [
     name: "experience",
     placeholder: "Experiencia",
     options: [
+      { value: "todas", label: "Todas" },
       { value: "menos de 1 año", label: "Menos de 1 año" },
       { value: "de 1 a 3 años", label: "De 1 a 3 años" },
       { value: "de 3 a 5 años", label: "De 3 a 5 años" },
@@ -16,7 +17,7 @@ const filtersOptions = [
     name: "languaje",
     placeholder: "Idioma",
     options: [
-      { value: "ninguno", label: "Ninguno" },
+      { value: "todos", label: "Todos" },
       { value: "ingles", label: "Ingles" },
       { value: "frances", label: "Frances" },
       { value: "portugues", label: "Portugues" },
@@ -26,6 +27,7 @@ const filtersOptions = [
     name: "country",
     placeholder: "País",
     options: [
+      { value: "todos", label: "Todos" },
       { value: "Panamá", label: "Panamá" },
       { value: "Colombia", label: "Colombia" },
       { value: "Argentina", label: "Argentina" },

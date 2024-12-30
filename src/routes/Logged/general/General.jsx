@@ -20,9 +20,9 @@ export const General = ({ user, token }) => {
   });
 
   const [filtros, setFiltros] = useState({
-    languaje: "ingles",
-    country: "Panama",
-    experience: "de 3 a 5 años",
+    languaje: "todos",
+    country: "todos",
+    experience: "todas",
     video: false
   });
 
@@ -77,11 +77,20 @@ export const General = ({ user, token }) => {
   useEffect(() => {
     const { languaje, country, experience } = filtros;
     let cumpleName = true;
+    let cumpleIdioma = true;
+    let cumplePais = true;
+    let cumpleExperiencia = true;
 
     const usuariosFiltrados = listUsers.filter((usuario) => {
-      const cumpleIdioma = languaje ? usuario.languaje.toLowerCase() === languaje.toLowerCase() : false;
-      const cumplePais = country ? usuario.country.toLowerCase() === country.toLowerCase() : false;
-      const cumpleExperiencia = experience ? filtrarPorExperiencia(usuario, experience) : false;
+      if (languaje != "todos") {
+        cumpleIdioma = languaje ? usuario.languaje.toLowerCase() === languaje.toLowerCase() : false;
+      }
+      if (country != "todos") {
+        cumplePais = country ? usuario.country.toLowerCase() === country.toLowerCase() : false;
+      }
+      if (experience != "todas") {
+        cumpleExperiencia = experience ? filtrarPorExperiencia(usuario, experience) : false;
+      }
       if (filterName != "") {
         cumpleName = filterName ? usuario.name.toLowerCase().includes(filterName.toLocaleLowerCase()) : false;
       }
