@@ -33,16 +33,16 @@ export const General = ({ user, token }) => {
 
   const filtrarPorExperiencia = (usuario, rango) => {
     const experienciaUsuario = extraerNumero(usuario.experience);
-  
+
     if (experienciaUsuario === null) return false;
-  
+
     switch (rango) {
       case "menos de 1 año":
         return experienciaUsuario < 1;
-  
+
       case "de 1 a 3 años":
         return experienciaUsuario >= 1 && experienciaUsuario <= 3;
-  
+
       case "de 3 a 5 años":
         return experienciaUsuario >= 3 && experienciaUsuario <= 5;
 
@@ -54,7 +54,7 @@ export const General = ({ user, token }) => {
 
       case "":
         return true;
-  
+
       default:
         return true;
     }
@@ -83,15 +83,14 @@ export const General = ({ user, token }) => {
       const cumplePais = country ? usuario.country.toLowerCase() === country.toLowerCase() : false;
       const cumpleExperiencia = experience ? filtrarPorExperiencia(usuario, experience) : false;
       if (filterName != "") {
-         cumpleName = filterName ? usuario.name.toLowerCase().includes(filterName.toLocaleLowerCase()) : false;
+        cumpleName = filterName ? usuario.name.toLowerCase().includes(filterName.toLocaleLowerCase()) : false;
       }
 
       return cumpleIdioma && cumplePais && cumpleExperiencia && cumpleName;
     });
-    
+
 
     setListUsersFiltered(usuariosFiltrados);
-    console.log(listUsersFiltered);
   }, [filtros, filterName]);
 
   const getUsers = async () => {
@@ -168,7 +167,6 @@ export const General = ({ user, token }) => {
       ...prevFiltros,
       [name]: value,
     }));
-    console.log(filtros)
   };
 
   const handleBarOnChange = (e) => {
@@ -190,25 +188,29 @@ export const General = ({ user, token }) => {
     const data = await response.json();
 
     if (data.status == "success") {
-      // Convertir experiencia a número
-      const experienciaNum = parseInt(data.offer.experience);
-
-      // Convertir talentos e idiomas a arreglos
-      const talentosArray = data.offer.area
-        .split(",")
-        .map((talento) => talento.trim().toLowerCase());
-      const idiomasArray = data.offer.languajes
-        .split(",")
-        .map((idioma) => idioma.trim().toLowerCase());
 
       setFilter(true);
-      setExperience(experienciaNum);
-      setLanguajes(idiomasArray);
-      setTalents(talentosArray);
-      setCountry(data.offer.country);
+
+      const languaje = data.offer.languajes.toLowerCase();
+      const country = data.offer.country.toLowerCase();
+      const experience = extraerNumero(data.offer.experience);
+      const area = data.offer.area.toLocaleLowerCase();
+
+      const usuariosFiltrados = listUsers.filter((usuario) => {
+        const cumpleIdioma = languaje ?  languaje.includes(usuario.languaje.toLowerCase()) : false;
+        const cumplePais = country ? usuario.country.toLowerCase() === country.toLowerCase() : false;
+        const cumpleExperiencia = experience ? extraerNumero(usuario.experience) >= experience : false;
+        const cumpleArea = area ? area.includes(usuario.talents.toLocaleLowerCase()) : false;
+  
+        return cumpleIdioma && cumplePais && cumpleExperiencia && cumpleArea;
+      });
+
+
+      setListUsersFiltered(usuariosFiltrados);
+
       closePopupPreFilter();
 
-      toast.success("Has creado la vacante de manera satisfactoria");
+      toast.success("Has filtrado con los parametros de tu vacante de manera satisfactoria");
     }
   };
 
@@ -259,6 +261,7 @@ export const General = ({ user, token }) => {
   };
 
   const setAllFilters = () => {
+    getUsers();
     setFilter(false);
   };
 
@@ -290,7 +293,7 @@ export const General = ({ user, token }) => {
 
   return (
     <div>
-      <SearchBar handleBarOnChange={handleBarOnChange}/>
+      <SearchBar handleBarOnChange={handleBarOnChange} />
 
       <FilterModule setAllFilters={setAllFilters} handleOnChange={handleOnChange} />
       <div className="flex justify-between gap-4 mb-6 ">
