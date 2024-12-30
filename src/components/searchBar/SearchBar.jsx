@@ -1,7 +1,7 @@
 import React from "react";
 import { FaSearch } from "react-icons/fa";
 
-function SearchBar() {
+function SearchBar({handleBarOnChange}) {
   return (
     <div className="relative w-full ">
       {" "}
@@ -11,7 +11,8 @@ function SearchBar() {
       <input
         className="border border-gray-300 rounded-lg pl-10 pr-4 py-2 w-full focus:outline-none  focus:border-[3px] focus:border-secondary transition duration-200 hover:bg-gray-50"
         type="text"
-        placeholder="Buscar"
+        placeholder="Buscar por nombre"
+        onChange={handleBarOnChange}
       />
     </div>
   );

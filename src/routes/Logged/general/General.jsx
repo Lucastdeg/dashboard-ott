@@ -11,6 +11,7 @@ import { toast } from "react-toastify";
 export const General = ({ user, token }) => {
   const [listUsers, setListUsers] = useState([]);
   const [urlCv, setUrlCv] = useState("");
+  const [filterName, setFilterName] = useState("");
   const [userData, setUser] = useState({
     name: "",
     talents: "",
@@ -18,6 +19,48 @@ export const General = ({ user, token }) => {
     availability: "",
   });
 
+  const [filtros, setFiltros] = useState({
+    languaje: "ingles",
+    country: "Panama",
+    experience: "de 3 a 5 años",
+    video: false
+  });
+
+  const extraerNumero = (texto) => {
+    const match = texto.match(/\d+/);
+    return match ? parseInt(match[0], 10) : null;
+  };
+
+  const filtrarPorExperiencia = (usuario, rango) => {
+    const experienciaUsuario = extraerNumero(usuario.experience);
+  
+    if (experienciaUsuario === null) return false;
+  
+    switch (rango) {
+      case "menos de 1 año":
+        return experienciaUsuario < 1;
+  
+      case "de 1 a 3 años":
+        return experienciaUsuario >= 1 && experienciaUsuario <= 3;
+  
+      case "de 3 a 5 años":
+        return experienciaUsuario >= 3 && experienciaUsuario <= 5;
+
+      case "de 5 a 8 años":
+        return experienciaUsuario >= 5 && experienciaUsuario <= 8;
+
+      case "más de 10 años":
+        return experienciaUsuario >= 10;
+
+      case "":
+        return true;
+  
+      default:
+        return true;
+    }
+  };
+
+  const [listUsersFiltered, setListUsersFiltered] = useState([]);
   const [listOffers, setListOffers] = useState([]);
   const [filter, setFilter] = useState(false);
   const [experience, setExperience] = useState("0");
@@ -29,8 +72,27 @@ export const General = ({ user, token }) => {
 
   useEffect(() => {
     getUsers();
-    getOffers();
   }, []);
+
+  useEffect(() => {
+    const { languaje, country, experience } = filtros;
+    let cumpleName = true;
+
+    const usuariosFiltrados = listUsers.filter((usuario) => {
+      const cumpleIdioma = languaje ? usuario.languaje.toLowerCase() === languaje.toLowerCase() : false;
+      const cumplePais = country ? usuario.country.toLowerCase() === country.toLowerCase() : false;
+      const cumpleExperiencia = experience ? filtrarPorExperiencia(usuario, experience) : false;
+      if (filterName != "") {
+         cumpleName = filterName ? usuario.name.toLowerCase().includes(filterName.toLocaleLowerCase()) : false;
+      }
+
+      return cumpleIdioma && cumplePais && cumpleExperiencia && cumpleName;
+    });
+    
+
+    setListUsersFiltered(usuariosFiltrados);
+    console.log(listUsersFiltered);
+  }, [filtros, filterName]);
 
   const getUsers = async () => {
     setLoading(true);
@@ -49,6 +111,7 @@ export const General = ({ user, token }) => {
 
     if (data.status == "success") {
       setListUsers(data.users);
+      setListUsersFiltered(data.users);
     }
     setLoading(false);
   };
@@ -98,6 +161,19 @@ export const General = ({ user, token }) => {
     }
     setWaitingDialogData(false);
   };
+
+  const handleOnChange = (e) => {
+    const { name, value } = e.target;
+    setFiltros((prevFiltros) => ({
+      ...prevFiltros,
+      [name]: value,
+    }));
+    console.log(filtros)
+  };
+
+  const handleBarOnChange = (e) => {
+    setFilterName(e.target.value);
+  }
 
   const addFilter = async (id) => {
     const response = await fetch(
@@ -189,21 +265,21 @@ export const General = ({ user, token }) => {
   const usersList = !filter
     ? listUsers
     : listUsers.filter((user) => {
-        const experienciaUserNum = parseInt(user.experience);
-        const talentosUserArray = user.talents
-          .split(",")
-          .map((talento) => talento.trim().toLowerCase());
-        const idiomasUserArray = user.languaje
-          .split(",")
-          .map((idioma) => idioma.trim().toLowerCase());
+      const experienciaUserNum = parseInt(user.experience);
+      const talentosUserArray = user.talents
+        .split(",")
+        .map((talento) => talento.trim().toLowerCase());
+      const idiomasUserArray = user.languaje
+        .split(",")
+        .map((idioma) => idioma.trim().toLowerCase());
 
-        return (
-          experienciaUserNum >= experience &&
-          talentosUserArray.some((talento) => talents.includes(talento)) &&
-          idiomasUserArray.some((idioma) => languajes.includes(idioma)) &&
-          user.country.toLowerCase() === country.toLowerCase()
-        );
-      });
+      return (
+        experienciaUserNum >= experience &&
+        talentosUserArray.some((talento) => talents.includes(talento)) &&
+        idiomasUserArray.some((idioma) => languajes.includes(idioma)) &&
+        user.country.toLowerCase() === country.toLowerCase()
+      );
+    });
 
   if (loading)
     return (
@@ -214,9 +290,9 @@ export const General = ({ user, token }) => {
 
   return (
     <div>
-      <SearchBar />
+      <SearchBar handleBarOnChange={handleBarOnChange}/>
 
-      <FilterModule setAllFilters={setAllFilters} />
+      <FilterModule setAllFilters={setAllFilters} handleOnChange={handleOnChange} />
       <div className="flex justify-between gap-4 mb-6 ">
         <button onClick={() => showPopupPreFilter()} className="buttonPrimary">
           Pre-Filtro OTT
@@ -231,16 +307,15 @@ export const General = ({ user, token }) => {
         )}
       </div>
       <div>
-        {usersList && usersList.length ? (
+        {listUsersFiltered && listUsersFiltered.length ? (
           <div
             key={user.id}
-            className={`grid  ${
-              usersList.length === 1
-                ? "grid-cols-1"
-                : "grid-cols-1 lg:grid-cols-2"
-            } gap-4`}
+            className={`grid  ${usersList.length === 1
+              ? "grid-cols-1"
+              : "grid-cols-1 lg:grid-cols-2"
+              } gap-4`}
           >
-            {usersList.map((user) => (
+            {listUsersFiltered.map((user) => (
               <div key={user.id}>
                 <Candidate
                   showPopupCandidate={showPopupCandidate}

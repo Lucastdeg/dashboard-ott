@@ -2,6 +2,7 @@ import { FaChevronDown } from "react-icons/fa";
 
 const filtersOptions = [
   {
+    name: "experience",
     placeholder: "Experiencia",
     options: [
       { value: "menos de 1 año", label: "Menos de 1 año" },
@@ -12,14 +13,17 @@ const filtersOptions = [
     ],
   },
   {
+    name: "languaje",
     placeholder: "Idioma",
     options: [
+      { value: "ninguno", label: "Ninguno" },
       { value: "ingles", label: "Ingles" },
       { value: "frances", label: "Frances" },
       { value: "portugues", label: "Portugues" },
     ],
   },
   {
+    name: "country",
     placeholder: "País",
     options: [
       { value: "Panamá", label: "Panamá" },
@@ -29,6 +33,7 @@ const filtersOptions = [
     ],
   },
   {
+    name: "video",
     placeholder: "Usuarios con video",
     options: [
       { value: "si", label: "Si" },
@@ -37,7 +42,7 @@ const filtersOptions = [
   },
 ];
 
-const FilterModule = ({ setAllFilters }) => {
+const FilterModule = ({ setAllFilters, handleOnChange }) => {
   return (
     <div className="flex flex-col space-y-4 w-full py-4">
       <div className="flex gap-4 flex-col lg:flex-row">
@@ -45,8 +50,10 @@ const FilterModule = ({ setAllFilters }) => {
           <div className="relative w-full">
             <select
               key={filter.placeholder}
+              name={filter.name}
               className="appearance-none border hover:bg-gray-50 cursor-pointer border-gray-300 rounded-lg py-2 px-4 pr-10 w-full focus:outline-none  focus:border-[3px] focus:border-secondary transition duration-200 bg-white"
               defaultValue=""
+              onChange={handleOnChange}
             >
               <option value="" disabled>
                 {filter.placeholder}
