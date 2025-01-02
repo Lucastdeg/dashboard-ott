@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { Elements, CardElement } from '@stripe/react-stripe-js';
+import { loadStripe } from '@stripe/stripe-js';
+
+const stripePromise = loadStripe('pk_test_51QctMq2K6ZGeF5ycLEZyFJXJpyqrf2JpfeszoTcIeVbRK7sCBDMehXE1Bsu9wFo9LtS4gGxsh2BpgLLVQX8NPDvf002pL0HMxT');
 
 export const CreateOffers = ({ user, token }) => {
   const navigate = useNavigate();
@@ -50,6 +54,12 @@ export const CreateOffers = ({ user, token }) => {
     );
     navigate("/offers");
   };
+
+  const CheckoutForm = () => {
+    return (
+        <CardElement className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary " />
+    );
+  }
 
   return (
     <div>
@@ -244,6 +254,15 @@ export const CreateOffers = ({ user, token }) => {
               />
             </fieldset>
           </div>
+          <label
+            className="block text-gray-700 font-semibold "
+          >
+            Pago por vacante:
+            costo $75.00
+          </label>
+          <Elements stripe={stripePromise} className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary ">
+            <CheckoutForm />
+          </Elements>
           <div className="flex justify-end ">
             <button type="submit" className="buttonPrimary  w-full lg:w-auto ">
               Crear vacante
