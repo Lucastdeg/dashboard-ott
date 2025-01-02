@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { Elements, CardElement } from '@stripe/react-stripe-js';
+import { Elements, CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import { loadStripe } from '@stripe/stripe-js';
+import { FaTimes } from "react-icons/fa";
 
 const stripePromise = loadStripe('pk_test_51QctMq2K6ZGeF5ycLEZyFJXJpyqrf2JpfeszoTcIeVbRK7sCBDMehXE1Bsu9wFo9LtS4gGxsh2BpgLLVQX8NPDvf002pL0HMxT');
 
@@ -48,18 +49,59 @@ export const CreateOffers = ({ user, token }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await getFetch(
-      `https://dashboard-ofrecetutalento.com:3100/api/offer/create-offer/${user._id}`,
-      form
-    );
-    navigate("/offers");
+
+    showPopup();
+
   };
 
   const CheckoutForm = () => {
+    const handleOnSubmitMethod = async (e) => {
+      e.preventDefault();
+
+      const stripe = useStripe();
+      const element = useElements();
+
+      const { error, paymentMethod } = await stripe.createPaymentMethod({
+        type: 'card',
+        card: element.getElement(CardElement)
+      })
+
+      if (!error) {
+        await getFetch(
+          `https://dashboard-ofrecetutalento.com:3100/api/offer/create-offer/${user._id}`,
+          form
+        );
+        console.log(paymentMethod);
+        navigate("/offers");
+      }
+    }
     return (
+      <form onSubmit={handleOnSubmitMethod}>
+        <label
+            className="block text-gray-700 font-semibold "
+          >
+            Pago por vacante:
+            costo $75.00
+          </label>
         <CardElement className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary " />
+        <button type="submit" className="buttonPrimary  w-full lg:w-auto ">
+              Comprar vacante
+        </button>
+      </form>
     );
   }
+
+  const showPopup = () => {
+    dialogRef.current.showModal();
+    document.body.classList.add("blur");
+  };
+
+  const closePopup = () => {
+    dialogRef.current.close();
+    document.body.classList.remove("blur");
+  };
+
+  const dialogRef = useRef(null);
 
   return (
     <div>
@@ -254,22 +296,27 @@ export const CreateOffers = ({ user, token }) => {
               />
             </fieldset>
           </div>
-          <label
-            className="block text-gray-700 font-semibold "
-          >
-            Pago por vacante:
-            costo $75.00
-          </label>
-          <Elements stripe={stripePromise} className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary ">
-            <CheckoutForm />
-          </Elements>
           <div className="flex justify-end ">
             <button type="submit" className="buttonPrimary  w-full lg:w-auto ">
-              Crear vacante
+              Comprar vacante
             </button>
           </div>
         </form>
       </div>
+      <dialog ref={dialogRef} className=" rounded-lg">
+        <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-xl lg:min-w-[36rem] relative transition-transform  ">
+          <button
+            onClick={closePopup}
+            className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition duration-200"
+          >
+            <FaTimes className="w-5 h-5" />
+          </button>
+
+          <Elements stripe={stripePromise} className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary ">
+            <CheckoutForm />
+          </Elements>
+        </div>
+      </dialog>
     </div>
   );
 };
