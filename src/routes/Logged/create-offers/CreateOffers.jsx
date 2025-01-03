@@ -96,14 +96,16 @@ export const CreateOffers = ({ user, token }) => {
         }
       }
       return (
-        <form onSubmit={handleOnSubmitMethod}>
+        <form onSubmit={handleOnSubmitMethod} className="space-y-3">
           <label
             className="block text-gray-700 font-semibold "
           >
             Pago por vacante:
             costo $75.00
           </label>
-          <CardElement className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary " />
+          <div className="p-4 border border-gray-300 w-full">
+          <CardElement />
+          </div>
           <button type="submit" className="buttonPrimary  w-full lg:w-auto ">
             Comprar vacante
           </button>
@@ -323,7 +325,7 @@ export const CreateOffers = ({ user, token }) => {
             </div>
           </form>
         </div>
-        <dialog ref={dialogRef} className=" rounded-lg">
+        <dialog ref={dialogRef} className="rounded-lg">
           <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-xl lg:min-w-[36rem] relative transition-transform  ">
             <div className="space-y-3 mb-4">
               <button
