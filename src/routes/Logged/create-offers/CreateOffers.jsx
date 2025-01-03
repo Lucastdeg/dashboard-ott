@@ -72,7 +72,7 @@ export const CreateOffers = ({ user, token }) => {
           id: id,
           amount: 7500
         }
-        const response = await fetch('http://localhost:3001/api/recruiter/checkout', {
+        const response = await fetch('https://dashboard-ofrecetutalento.com:3500/api/recruiter/checkout', {
           method: "POST",
           headers: {
             "content-type": "application/json",
@@ -86,11 +86,13 @@ export const CreateOffers = ({ user, token }) => {
             `https://dashboard-ofrecetutalento.com:3100/api/offer/create-offer/${user._id}`,
             form
           );
-          console.log(data);
+          toast.success(data.message);
           navigate("/offers");
-        } 
+        }else {
           toast.error(data.message);
           closePopup();
+        }
+          
         }
       }
       return (
