@@ -5,7 +5,7 @@ import { Elements, CardElement, useStripe, useElements } from '@stripe/react-str
 import { loadStripe } from '@stripe/stripe-js';
 import { FaTimes } from "react-icons/fa";
 
-const stripePromise = loadStripe('pk_test_51QctMq2K6ZGeF5ycLEZyFJXJpyqrf2JpfeszoTcIeVbRK7sCBDMehXE1Bsu9wFo9LtS4gGxsh2BpgLLVQX8NPDvf002pL0HMxT');
+const stripePromise = loadStripe('pk_live_51JjwobEzghndPK9DBXgVwFRDp4FDSmYRvUrxFmVxjK7bnUqD9hHrD8yiPewbiBduwxfVUF1j1J4kEG8xbBmKFujc00U11wwfA2');
 
 export const CreateOffers = ({ user, token }) => {
   const navigate = useNavigate();
