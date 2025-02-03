@@ -206,12 +206,10 @@ export const General = ({ user, token }) => {
       const area = data.offer.area.toLocaleLowerCase();
 
       const usuariosFiltrados = listUsers.filter((usuario) => {
-        const cumpleIdioma = languaje ?  languaje.includes(usuario.languaje.toLowerCase()) : false;
         const cumplePais = country ? usuario.country.toLowerCase() === country.toLowerCase() : false;
-        const cumpleExperiencia = experience ? extraerNumero(usuario.experience) >= experience : false;
         const cumpleArea = area ? area.includes(usuario.talents.toLocaleLowerCase()) : false;
   
-        return cumpleIdioma && cumplePais && cumpleExperiencia && cumpleArea;
+        return cumpleArea && cumplePais;
       });
 
 
@@ -219,7 +217,9 @@ export const General = ({ user, token }) => {
 
       closePopupPreFilter();
 
-      toast.success("Has filtrado con los parametros de tu vacante de manera satisfactoria");
+      toast.success(`Estás filtrando con los siguientes parametros: 
+                     Area: ${data.offer.area}
+                     País: ${data.offer.country}`);
     }
   };
 
