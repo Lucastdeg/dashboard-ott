@@ -203,13 +203,20 @@ export const General = ({ user, token }) => {
       const languaje = data.offer.languajes.toLowerCase();
       const country = data.offer.country.toLowerCase();
       const experience = extraerNumero(data.offer.experience);
-      const area = data.offer.area.toLocaleLowerCase();
+      const area = data.offer.title;
+      const description = data.offer.description;
+
+      const stopwords = ["de", "la", "el", "los", "las", "con", "y", "a", "en", "por", "para", "un", "una"];
+      const wordOne = area.toLowerCase().replace(/[\/]/g, " ").split(/\s*,*\s+/).filter(palabra => !stopwords.includes(palabra));
+      const wordThree = description.toLowerCase().split(/\s*,*\s+/).filter(palabra => !stopwords.includes(palabra));
 
       const usuariosFiltrados = listUsers.filter((usuario) => {
+        const wordTwo = usuario.talents.toLowerCase().split(/\s*,*\s+/);
         const cumplePais = country ? usuario.country.toLowerCase() === country.toLowerCase() : false;
-        const cumpleArea = area ? area.includes(usuario.talents.toLocaleLowerCase()) : false;
+        const cumpleArea = wordOne.some(word => wordTwo.includes(word));
+        const cumpleDescription = wordThree.some(word => wordTwo.includes(word));
   
-        return cumpleArea && cumplePais;
+        return cumpleArea|| cumpleDescription;
       });
 
 
@@ -218,7 +225,8 @@ export const General = ({ user, token }) => {
       closePopupPreFilter();
 
       toast.success(`Estás filtrando con los siguientes parametros: 
-                     Area: ${data.offer.area}
+                     Titulo: ${data.offer.title}
+                     Descripción: ${data.offer.description}
                      País: ${data.offer.country}`);
     }
   };
