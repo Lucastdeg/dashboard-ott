@@ -317,6 +317,9 @@ export const General = ({ user, token }) => {
         <button onClick={() => showPopupPreFilter()} className="buttonPrimary">
           Pre-Filtro OTT
         </button>
+        <button className="buttonPrimary">
+          Pre-Filtro Retails
+        </button>
         {filter && (
           <button
             onClick={() => setAllFilters()}
