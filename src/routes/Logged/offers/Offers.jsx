@@ -10,6 +10,7 @@ export const Offers = ({ user, token }) => {
 
   const [loading, setLoading] = useState(false);
   const [listOffers, setListOffers] = useState([]);
+  const [listCandidates, setListCandidates] = useState([]);
   const [waitingDialogData, setWaitingDialogData] = useState(false);
 
   const [offer, setOffer] = useState({
@@ -65,6 +66,27 @@ export const Offers = ({ user, token }) => {
     setWaitingDialogData(false);
   };
 
+  const getCandidate = async (id) => {
+    setWaitingDialogData(true);
+    const response = await fetch(
+      `https://dashboard-ofrecetutalento.com:3100/api/offer/get-offer/${user._id}/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.status == "success") {
+      setListCandidates(data.offer.user);
+    }
+    setWaitingDialogData(false);
+  };
+
   const handleDelete = async (id) => {
     const result = confirm("Estas seguro de querer eliminar la vacante?");
 
@@ -93,6 +115,7 @@ export const Offers = ({ user, token }) => {
   };
 
   const dialogRef = useRef(null);
+  const dialogRefTwo = useRef(null);
 
   const showPopup = async (id) => {
     await getOffer(id);
@@ -104,6 +127,18 @@ export const Offers = ({ user, token }) => {
     dialogRef.current.close();
     document.body.classList.remove("blur");
   };
+
+  const closePopupTwo = () => {
+    dialogRefTwo.current.close();
+    dialogRef.current.close();
+    document.body.classList.remove("blur");
+  };
+
+  const showCandidates = async (id) => {
+    await getCandidate(id);
+    dialogRefTwo.current.showModal();
+    document.body.classList.add("blur");
+  }
 
   if (loading)
     return (
@@ -126,11 +161,10 @@ export const Offers = ({ user, token }) => {
 
       {listOffers && listOffers.length ? (
         <div
-          className={`grid  ${
-            listOffers.length === 1
-              ? "grid-cols-1"
-              : "grid-cols-1 lg:grid-cols-2"
-          } gap-4`}
+          className={`grid  ${listOffers.length === 1
+            ? "grid-cols-1"
+            : "grid-cols-1 lg:grid-cols-2"
+            } gap-4`}
         >
           {listOffers.map((offer) => (
             <div
@@ -234,12 +268,67 @@ export const Offers = ({ user, token }) => {
             >
               <FaTrash className="w-5 h-5" /> Eliminar vacante
             </button>
+            <button onClick={() => showCandidates(offer._id)} className="flex items-center gap-2 bg-primary text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-primary-dark transition duration-200">
+              <FaEdit className="w-5 h-5" /> Ver postulaciones
+            </button>
             <button className="flex items-center gap-2 bg-primary text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-primary-dark transition duration-200">
               <FaEdit className="w-5 h-5" /> Editar vacante
             </button>
           </div>
         </div>
       </dialog>
-    </div>
+
+      <dialog ref={dialogRefTwo} className="rounded-lg">
+        <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl lg:min-w-[40rem] relative ">
+          <button
+            onClick={closePopupTwo}
+            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition duration-200"
+          >
+            <FaTimes className="w-6 h-6" />
+          </button>
+
+          {listCandidates && listCandidates.length ? (
+            <div
+              className={`grid  ${listCandidates.length === 1
+                ? "grid-cols-1"
+                : "grid-cols-1 lg:grid-cols-2"
+                } gap-4`}
+            >
+              {listCandidates.map((candidate) => (
+                <div
+                  key={candidate._id}
+                  onClick={() => showPopup(candidate._id)}
+                  className="bg-white shadow-lg rounded-lg border border-gray-200 p-6 transition-transform transform hover:scale-[1.02] cursor-pointer border-t-4 border-t-secondary hover:shadow-xl"
+                >
+                  <h3 className="text-xl font-bold text-primary  mb-2  transition-colors duration-200">
+                    {candidate.name}
+                  </h3>
+                  <p className="text-sm text-gray-600 mb-1">
+                    <span className="font-medium">Experiencia:</span> {candidate.experience},{" "}
+                    País:{candidate.country}
+                  </p>
+                  <p className="text-lg text-primary font-semibold mt-2 mb-1">
+                    talentos:{" "}
+                    <span className="text-secondary">{candidate.talents}</span>
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <div className="text-center py-10">
+              <h2 className="text-xl font-semibold text-gray-500">
+                Aún no hay candidatos que hayan postulado a tu vacante
+              </h2>
+            </div>
+          )}
+          {waitingDialogData && (
+            <div className="fixed  top-0 left-0   flex justify-center items-center h-screen w-screen">
+              <Loader />
+            </div>
+          )}
+
+        </div>
+      </dialog >
+    </div >
   );
 };
