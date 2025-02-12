@@ -271,9 +271,6 @@ export const Offers = ({ user, token }) => {
             <button onClick={() => showCandidates(offer._id)} className="flex items-center gap-2 bg-primary text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-primary-dark transition duration-200">
               <FaEdit className="w-5 h-5" /> Ver postulaciones
             </button>
-            <button className="flex items-center gap-2 bg-primary text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-primary-dark transition duration-200">
-              <FaEdit className="w-5 h-5" /> Editar vacante
-            </button>
           </div>
         </div>
       </dialog>
