@@ -324,7 +324,7 @@ export const Offers = ({ user, token }) => {
         <div className="bg-white rounded-2xl shadow-2xl p-8 w-full max-w-3xl lg:min-w-[40rem] relative ">
           <button
             onClick={closePopupTwo}
-            className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition duration-200"
+            className="absolute top-2 right-4 text-gray-400 hover:text-gray-600 transition duration-200"
           >
             <FaTimes className="w-6 h-6" />
           </button>
