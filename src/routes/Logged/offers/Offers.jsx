@@ -1,7 +1,8 @@
 import React, { useRef, useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
+import Iframe from "react-iframe";
 
-import { FaEdit, FaPlus, FaTimes, FaTrash } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTimes, FaTrash, FaRobot } from "react-icons/fa";
 import Loader from "../../../components/loader/Loader";
 import { toast } from "react-toastify";
 
@@ -25,9 +26,38 @@ export const Offers = ({ user, token }) => {
     getOffers();
   }, []);
 
+  const getFetch = async () => {
+    const params = new URLSearchParams();
+
+    const users = listCandidates.map((user) => ({
+      name: user.name,
+      experience: user.experience,
+      talents: user.talents,
+      languajes: user.languaje,
+    }));
+
+    params.append("users", JSON.stringify(users));
+    params.append("offer", JSON.stringify(offer));
+
+    const response = await fetch(
+      "https://minichatbot.com:4900/api/results/get-results",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+        },
+        body: params.toString(),
+      }
+    );
+
+    const data = await response.json();
+    if (data.status !== "success") {
+      console.error(data.message);
+    }
+  };
+
   const getOffers = async () => {
     setLoading(true);
-    console.log(user._id);
     const response = await fetch(
       `https://dashboard-ofrecetutalento.com:3100/api/offer/get-offers/${user._id}`,
       {
@@ -116,6 +146,7 @@ export const Offers = ({ user, token }) => {
 
   const dialogRef = useRef(null);
   const dialogRefTwo = useRef(null);
+  const dialogRefThree = useRef(null);
 
   const showPopup = async (id) => {
     await getOffer(id);
@@ -139,6 +170,16 @@ export const Offers = ({ user, token }) => {
     dialogRefTwo.current.showModal();
     document.body.classList.add("blur");
   }
+
+  const showBot = async () => {
+    await getFetch();
+    dialogRefThree.current.showModal();
+    document.body.classList.add("blur");
+  }
+
+  const closePopupThree = () => {
+    dialogRefThree.current.close();
+  };
 
   if (loading)
     return (
@@ -191,6 +232,10 @@ export const Offers = ({ user, token }) => {
                 <p className="text-xs text-gray-500">
                   <span className="font-medium">Disponibilidad:</span>{" "}
                   {offer.availability}
+                </p>
+                <p className="text-xs text-gray-500">
+                  <span className="font-medium">Postulados:</span>{" "}
+                  {offer.user.length}
                 </p>
               </div>
             </div>
@@ -285,31 +330,38 @@ export const Offers = ({ user, token }) => {
           </button>
 
           {listCandidates && listCandidates.length ? (
-            <div
-              className={`grid  ${listCandidates.length === 1
-                ? "grid-cols-1"
-                : "grid-cols-1 lg:grid-cols-2"
-                } gap-4`}
-            >
-              {listCandidates.map((candidate) => (
-                <div
-                  key={candidate._id}
-                  onClick={() => showPopup(candidate._id)}
-                  className="bg-white shadow-lg rounded-lg border border-gray-200 p-6 transition-transform transform hover:scale-[1.02] cursor-pointer border-t-4 border-t-secondary hover:shadow-xl"
-                >
-                  <h3 className="text-xl font-bold text-primary  mb-2  transition-colors duration-200">
-                    {candidate.name}
-                  </h3>
-                  <p className="text-sm text-gray-600 mb-1">
-                    <span className="font-medium">Experiencia:</span> {candidate.experience},{" "}
-                    País:{candidate.country}
-                  </p>
-                  <p className="text-lg text-primary font-semibold mt-2 mb-1">
-                    talentos:{" "}
-                    <span className="text-secondary">{candidate.talents}</span>
-                  </p>
-                </div>
-              ))}
+            <div>
+              <div
+                className={`grid  ${listCandidates.length === 1
+                  ? "grid-cols-1"
+                  : "grid-cols-1 lg:grid-cols-2"
+                  } gap-4`}
+              >
+                {listCandidates.map((candidate) => (
+                  <div
+                    key={candidate._id}
+                    onClick={() => showPopup(candidate._id)}
+                    className="bg-white shadow-lg rounded-lg border border-gray-200 p-6 transition-transform transform hover:scale-[1.02] cursor-pointer border-t-4 border-t-secondary hover:shadow-xl"
+                  >
+                    <h3 className="text-xl font-bold text-primary  mb-2  transition-colors duration-200">
+                      {candidate.name}
+                    </h3>
+                    <p className="text-sm text-gray-600 mb-1">
+                      <span className="font-medium">Experiencia:</span> {candidate.experience},{" "}
+                      País:{candidate.country}
+                    </p>
+                    <p className="text-lg text-primary font-semibold mt-2 mb-1">
+                      talentos:{" "}
+                      <span className="text-secondary">{candidate.talents}</span>
+                    </p>
+                  </div>
+                ))}
+              </div>
+              <div className="flex justify-center mt-4">
+                <button onClick={() => showBot(offer._id)} className="flex items-center gap-2 bg-primary text-white font-semibold py-2 px-6 rounded-lg shadow-md hover:bg-primary-dark transition duration-200">
+                  <FaRobot className="w-5 h-5" /> Comparar con IA
+                </button>
+              </div>
             </div>
           ) : (
             <div className="text-center py-10">
@@ -326,6 +378,23 @@ export const Offers = ({ user, token }) => {
 
         </div>
       </dialog >
+
+      <dialog ref={dialogRefThree} className="rounded-lg w-full max-w-5xl h-[80vh] p-6">
+        <button
+          onClick={closePopupThree}
+          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition duration-200"
+        >
+          <FaTimes className="w-6 h-6" />
+        </button>
+        <Iframe
+          url="https://bot-bgps.netlify.app"
+          width="100%"
+          height="100%"
+          display="initial"
+          className="xl:rounded-lg"
+          position="relative"
+        />
+      </dialog>
     </div >
   );
 };
