@@ -382,7 +382,7 @@ export const Offers = ({ user, token }) => {
       <dialog ref={dialogRefThree} className="rounded-lg w-full max-w-5xl h-[80vh] p-6">
         <button
           onClick={closePopupThree}
-          className="absolute top-4 right-4 text-gray-400 hover:text-gray-600 transition duration-200"
+          className="absolute top-1 right-6 text-gray-400 hover:text-gray-600 transition duration-200"
         >
           <FaTimes className="w-6 h-6" />
         </button>
