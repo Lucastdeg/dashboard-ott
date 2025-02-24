@@ -417,7 +417,7 @@ export const General = ({ user, token }) => {
               <h4 className="font-bold text-gray-700">Disponibilidad:</h4>
               <h6 className="text-gray-600">{userData.availability}</h6>
             </div>
-            {userData.retail.toLowerCase() === 'si' && <div className="border-b pb-2"> 
+            {userData?.retail?.toLowerCase() === 'si' && <div className="border-b pb-2"> 
               <h4 className="font-bold text-gray-700">Supermercados:</h4>
               <h6 className="text-gray-600">{userData.retail}</h6>
 
