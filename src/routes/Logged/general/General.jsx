@@ -215,8 +215,8 @@ export const General = ({ user, token }) => {
         const cumplePais = country ? usuario.country.toLowerCase() === country.toLowerCase() : false;
         const cumpleArea = wordOne.some(word => wordTwo.includes(word));
         const cumpleDescription = wordThree.some(word => wordTwo.includes(word));
-  
-        return cumpleArea|| cumpleDescription;
+
+        return cumpleArea || cumpleDescription;
       });
 
 
@@ -277,6 +277,22 @@ export const General = ({ user, token }) => {
     document.body.classList.remove("blur");
   };
 
+  const addFilterRetail = () => {
+    setFilter(true);
+    setWaitingDialogData(true);
+
+    const usuariosFiltrados = listUsers.filter((usuario) => {
+      const cumpleRetail = usuario.retail.toLowerCase() === 'si';
+
+      return cumpleRetail;
+    });
+
+
+    setListUsersFiltered(usuariosFiltrados);
+    toast.success(`Estás filtrando con los siguientes parametros: Retail, carnet verde, carnet blanco `);
+    setWaitingDialogData(false);
+  }
+
   const setAllFilters = () => {
     getUsers();
     setFilter(false);
@@ -317,7 +333,7 @@ export const General = ({ user, token }) => {
         <button onClick={() => showPopupPreFilter()} className="buttonPrimary">
           Pre-Filtro OTT
         </button>
-        <button className="buttonPrimary">
+        <button className="buttonPrimary" onClick={addFilterRetail}>
           Pre-Filtro Retails
         </button>
         {filter && (
@@ -401,6 +417,22 @@ export const General = ({ user, token }) => {
               <h4 className="font-bold text-gray-700">Disponibilidad:</h4>
               <h6 className="text-gray-600">{userData.availability}</h6>
             </div>
+            {userData.retail.toLowerCase() === 'si' && <div className="border-b pb-2"> 
+              <h4 className="font-bold text-gray-700">Supermercados:</h4>
+              <h6 className="text-gray-600">{userData.retail}</h6>
+
+              <h4 className="font-bold text-gray-700">Turnos rotativos:</h4>
+              <h6 className="text-gray-600">{userData.turnos}</h6>
+
+              <h4 className="font-bold text-gray-700">Disponibilidad festivos:</h4>
+              <h6 className="text-gray-600">{userData.holidays}</h6>
+
+              <h4 className="font-bold text-gray-700">Carnet blanco:</h4>
+              <h6 className="text-gray-600">{userData.whitecard}</h6>
+
+              <h4 className="font-bold text-gray-700">Carnet verde:</h4>
+              <h6 className="text-gray-600">{userData.greencard}</h6>
+            </div>}
           </div>
 
           <div className="flex flex-col space-y-2">
