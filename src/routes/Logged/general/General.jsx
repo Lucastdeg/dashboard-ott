@@ -427,6 +427,9 @@ export const General = ({ user, token }) => {
               <h4 className="font-bold text-gray-700">Disponibilidad dias feriados nacionales:</h4>
               <h6 className="text-gray-600">{userData.holidays}</h6>
 
+              <h4 className="font-bold text-gray-700">Disponibilidad de lunes a domingos:</h4>
+              <h6 className="text-gray-600">{userData.sundays}</h6>
+
               <h4 className="font-bold text-gray-700">Carnet blanco:</h4>
               <h6 className="text-gray-600">{userData.whitecard}</h6>
 
