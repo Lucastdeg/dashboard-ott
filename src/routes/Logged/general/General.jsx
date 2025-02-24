@@ -293,6 +293,11 @@ export const General = ({ user, token }) => {
     setWaitingDialogData(false);
   }
 
+  const interviewWhats = (tel) => {
+    const url = `https://wa.me/${tel}`;
+    window.open(url, "_blank");
+  }
+
   const setAllFilters = () => {
     getUsers();
     setFilter(false);
@@ -417,7 +422,7 @@ export const General = ({ user, token }) => {
               <h4 className="font-bold text-gray-700">Disponibilidad:</h4>
               <h6 className="text-gray-600">{userData.availability}</h6>
             </div>
-            {userData?.retail?.toLowerCase() === 'si' && <div className="border-b pb-2"> 
+            {userData?.retail?.toLowerCase() === 'si' && <div className="border-b pb-2">
               <h4 className="font-bold text-gray-700">Supermercados:</h4>
               <h6 className="text-gray-600">{userData.retail}</h6>
 
@@ -449,7 +454,10 @@ export const General = ({ user, token }) => {
               Ver video
             </button>
             <button className="bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition duration-200 shadow-md hover:shadow-lg">
-              Agendar entrevista
+              Agendar entrevista via email
+            </button>
+            <button onClick={() => { interviewWhats(userData.tel) }} className="bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition duration-200 shadow-md hover:shadow-lg">
+              Agendar entrevista via whatsapp
             </button>
           </div>
         </div>
