@@ -72,6 +72,18 @@ export const General = ({ user, token }) => {
 
   useEffect(() => {
     getUsers();
+    getOffers();
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        dialogRefTwo.current.close();
+        dialogRef.current.close();
+        document.body.classList.remove("blur");
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   useEffect(() => {
@@ -452,9 +464,6 @@ export const General = ({ user, token }) => {
             </button>
             <button className="bg-secondary text-white py-2 rounded-lg hover:bg-secondary-dark transition duration-200 shadow-md hover:shadow-lg">
               Ver video
-            </button>
-            <button className="bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition duration-200 shadow-md hover:shadow-lg">
-              Agendar entrevista via email
             </button>
             <button onClick={() => { interviewWhats(userData.tel) }} className="bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition duration-200 shadow-md hover:shadow-lg">
               Agendar entrevista via whatsapp

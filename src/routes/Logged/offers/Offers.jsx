@@ -2,9 +2,10 @@ import React, { useRef, useState, useEffect } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import Iframe from "react-iframe";
 
-import { FaEdit, FaPlus, FaTimes, FaTrash, FaRobot } from "react-icons/fa";
+import { FaEdit, FaPlus, FaTimes, FaTrash, FaRobot, FaHeart } from "react-icons/fa";
 import Loader from "../../../components/loader/Loader";
 import { toast } from "react-toastify";
+import defaultUserImg from "../../../assets/user.png";
 
 export const Offers = ({ user, token }) => {
   const navigate = useNavigate();
@@ -13,6 +14,13 @@ export const Offers = ({ user, token }) => {
   const [listOffers, setListOffers] = useState([]);
   const [listCandidates, setListCandidates] = useState([]);
   const [waitingDialogData, setWaitingDialogData] = useState(false);
+  const [urlCv, setUrlCv] = useState("");
+  const [userData, setUser] = useState({
+    name: "",
+    talents: "",
+    experience: "",
+    availability: "",
+  });
 
   const [offer, setOffer] = useState({
     title: "",
@@ -24,6 +32,19 @@ export const Offers = ({ user, token }) => {
 
   useEffect(() => {
     getOffers();
+    const handleKeyDown = (event) => {
+      if (event.key === "Escape") {
+        dialogRefTwo.current.close();
+        dialogRef.current.close();
+        dialogRefThree.current.close();
+        dialogRefFour.current.close();
+        document.body.classList.remove("blur");
+      }
+    };
+    document.addEventListener("keydown", handleKeyDown);
+    return () => {
+      document.removeEventListener("keydown", handleKeyDown);
+    };
   }, []);
 
   const getFetch = async () => {
@@ -96,6 +117,30 @@ export const Offers = ({ user, token }) => {
     setWaitingDialogData(false);
   };
 
+  const getUser = async (id) => {
+    setWaitingDialogData(true);
+    const response = await fetch(
+      `https://dashboard-ofrecetutalento.com:3100/api/user/get-user/${id}`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json",
+          Authorization: token,
+        },
+      }
+    );
+
+    const data = await response.json();
+
+    if (data.status == "success") {
+      setUser(data.user);
+      setUrlCv(
+        `https://dashboard-ofrecetutalento.com:3100/api/user/get-pdf/${data.user.cv}`
+      );
+    }
+    setWaitingDialogData(false);
+  };
+
   const getCandidate = async (id) => {
     setWaitingDialogData(true);
     const response = await fetch(
@@ -116,6 +161,11 @@ export const Offers = ({ user, token }) => {
     }
     setWaitingDialogData(false);
   };
+
+  const interviewWhats = (tel) => {
+    const url = `https://wa.me/${tel}`;
+    window.open(url, "_blank");
+  }
 
   const handleDelete = async (id) => {
     const result = confirm("Estas seguro de querer eliminar la vacante?");
@@ -147,11 +197,33 @@ export const Offers = ({ user, token }) => {
   const dialogRef = useRef(null);
   const dialogRefTwo = useRef(null);
   const dialogRefThree = useRef(null);
+  const dialogRefFour = useRef(null);
 
   const showPopup = async (id) => {
     await getOffer(id);
     dialogRef.current.showModal();
     document.body.classList.add("blur");
+  };
+
+  const showCv = async () => {
+    try {
+      const response = await fetch(urlCv, {
+        method: "GET",
+        headers: {
+          Authorization: token,
+        },
+      });
+
+      if (response.ok) {
+        const blob = await response.blob();
+        const url = window.URL.createObjectURL(blob);
+        window.open(url, "_blank");
+      } else {
+        throw new Error("Error al obtener el PDF");
+      }
+    } catch (error) {
+      console.error("Error al abrir el PDF:", error);
+    }
   };
 
   const closePopup = () => {
@@ -165,9 +237,19 @@ export const Offers = ({ user, token }) => {
     document.body.classList.remove("blur");
   };
 
+  const closePopupCandidateOne = () => {
+    dialogRefFour.current.close();
+  };
+
   const showCandidates = async (id) => {
     await getCandidate(id);
     dialogRefTwo.current.showModal();
+    document.body.classList.add("blur");
+  }
+
+  const showOneCandidate = async (id) => {
+    await getUser(id);
+    dialogRefFour.current.showModal();
     document.body.classList.add("blur");
   }
 
@@ -340,7 +422,7 @@ export const Offers = ({ user, token }) => {
                 {listCandidates.map((candidate) => (
                   <div
                     key={candidate._id}
-                    onClick={() => showPopup(candidate._id)}
+                    onClick={() => showOneCandidate(candidate._id)}
                     className="bg-white shadow-lg rounded-lg border border-gray-200 p-6 transition-transform transform hover:scale-[1.02] cursor-pointer border-t-4 border-t-secondary hover:shadow-xl"
                   >
                     <h3 className="text-xl font-bold text-primary  mb-2  transition-colors duration-200">
@@ -394,6 +476,81 @@ export const Offers = ({ user, token }) => {
           className="xl:rounded-lg"
           position="relative"
         />
+      </dialog>
+
+      <dialog ref={dialogRefFour} className=" rounded-lg">
+        <div className="bg-white rounded-lg shadow-lg p-6 w-full max-w-xl lg:min-w-[36rem] relative transition-transform  ">
+          <button
+            onClick={closePopupCandidateOne}
+            className="absolute top-4 right-4 text-gray-500 hover:text-gray-800 transition duration-200"
+          >
+            <FaTimes className="w-5 h-5" />
+          </button>
+
+          <div className="flex items-center mb-4">
+            <img
+              src={userData.photo || defaultUserImg}
+              alt={`Photo de ${userData.name}`}
+              className="w-20 h-20 rounded-full border-4 border-primary shadow-md mr-4"
+            />
+            <div>
+              <h3 className="text-2xl font-semibold text-secondary">{`Perfil ${userData.name}`}</h3>
+              <button className="mt-1 flex items-center text-gray-600 hover:text-red-500 transition duration-200">
+                <FaHeart className="mr-1" />
+                Añadir a favoritos
+              </button>
+            </div>
+          </div>
+
+          <div className="space-y-3 mb-4">
+            <div className="border-b pb-2">
+              <h4 className="font-bold text-gray-700">Talentos:</h4>
+              <h6 className="text-gray-600">{userData.talents}</h6>
+            </div>
+            <div className="border-b pb-2">
+              <h4 className="font-bold text-gray-700">Años de experiencia:</h4>
+              <h6 className="text-gray-600">{userData.experience}</h6>
+            </div>
+            <div className="border-b pb-2">
+              <h4 className="font-bold text-gray-700">Disponibilidad:</h4>
+              <h6 className="text-gray-600">{userData.availability}</h6>
+            </div>
+            {userData?.retail?.toLowerCase() === 'si' && <div className="border-b pb-2">
+              <h4 className="font-bold text-gray-700">Supermercados:</h4>
+              <h6 className="text-gray-600">{userData.retail}</h6>
+
+              <h4 className="font-bold text-gray-700">Turnos rotativos:</h4>
+              <h6 className="text-gray-600">{userData.turnos}</h6>
+
+              <h4 className="font-bold text-gray-700">Disponibilidad dias feriados nacionales:</h4>
+              <h6 className="text-gray-600">{userData.holidays}</h6>
+
+              <h4 className="font-bold text-gray-700">Disponibilidad de lunes a domingos:</h4>
+              <h6 className="text-gray-600">{userData.sundays}</h6>
+
+              <h4 className="font-bold text-gray-700">Carnet blanco:</h4>
+              <h6 className="text-gray-600">{userData.whitecard}</h6>
+
+              <h4 className="font-bold text-gray-700">Carnet verde:</h4>
+              <h6 className="text-gray-600">{userData.greencard}</h6>
+            </div>}
+          </div>
+
+          <div className="flex flex-col space-y-2">
+            <button
+              onClick={showCv}
+              className="bg-primary text-white py-2 rounded-lg hover:bg-primary-dark transition duration-200 shadow-md hover:shadow-lg"
+            >
+              Ver CV
+            </button>
+            <button className="bg-secondary text-white py-2 rounded-lg hover:bg-secondary-dark transition duration-200 shadow-md hover:shadow-lg">
+              Ver video
+            </button>
+            <button onClick={() => { interviewWhats(userData.tel) }} className="bg-gray-200 text-gray-700 py-2 rounded-lg hover:bg-gray-300 transition duration-200 shadow-md hover:shadow-lg">
+              Agendar entrevista via whatsapp
+            </button>
+          </div>
+        </div>
       </dialog>
     </div >
   );
