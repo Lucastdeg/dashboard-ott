@@ -74,7 +74,7 @@ export const Register = () => {
                 required
                 onChange={handleOnChange}
                 type="text"
-                name="Nombre"
+                name="name"
                 placeholder="Nombre"
                 className="outline-none w-full"
               />
@@ -86,7 +86,7 @@ export const Register = () => {
                 required
                 onChange={handleOnChange}
                 type="text"
-                name="Apellido"
+                name="lastname"
                 placeholder="Apellido"
                 className="outline-none w-full "
               />
@@ -97,7 +97,7 @@ export const Register = () => {
                 required
                 onChange={handleOnChange}
                 type="text"
-                name="Usuario"
+                name="user"
                 placeholder="Usuario"
                 className="outline-none w-full"
               />
