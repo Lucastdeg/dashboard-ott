@@ -244,6 +244,11 @@ export const General = ({ user, token }) => {
   };
 
   const showCv = async () => {
+    if (user.suscription === 'ninguna') {
+      alert('No cuentas con una suscripción para ver CVS');
+      return;
+    }
+
     try {
       const response = await fetch(urlCv, {
         method: "GET",
@@ -263,6 +268,7 @@ export const General = ({ user, token }) => {
       console.error("Error al abrir el PDF:", error);
     }
   };
+
 
   const dialogRef = useRef(null);
   const dialogRefTwo = useRef(null);
@@ -306,9 +312,14 @@ export const General = ({ user, token }) => {
   }
 
   const interviewWhats = (tel) => {
+    if (user.suscription === 'ninguna') {
+      alert('No cuentas con una suscripción para agendar entrevistas');
+      return;
+    }
+
     const url = `https://wa.me/${tel}`;
     window.open(url, "_blank");
-  }
+  };
 
   const setAllFilters = () => {
     getUsers();

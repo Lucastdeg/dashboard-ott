@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Recaptcha from "react-google-recaptcha";
 
 import {
   FaEnvelope,
@@ -137,6 +138,7 @@ export const Register = () => {
                 )}
               </button>
             </div>
+            <Recaptcha sitekey="6LfXfPYqAAAAAPTLs2o_xQQVXLeY_ZE0mcbgZpGw" />
 
             <button type="submit" className="authSubmitButton">
               Register

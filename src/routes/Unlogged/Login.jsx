@@ -2,6 +2,7 @@ import { useState } from "react";
 import { FaEnvelope, FaEye, FaEyeSlash, FaLock } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import { toast } from "react-toastify";
+import Recaptcha from "react-google-recaptcha";
 
 export const Login = ({ setLoged, setUser, setToken }) => {
   const [form, setForm] = useState({});
@@ -86,6 +87,7 @@ export const Login = ({ setLoged, setUser, setToken }) => {
               )}
             </button>
           </div>
+          <Recaptcha sitekey="6LfXfPYqAAAAAPTLs2o_xQQVXLeY_ZE0mcbgZpGw" />
 
           <button type="submit" className="authSubmitButton">
             Login

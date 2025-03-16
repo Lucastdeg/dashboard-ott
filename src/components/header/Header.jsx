@@ -75,6 +75,8 @@ export const Header = ({
           >
             <FaUserCircle className="text-2xl lg:text-3xl" />
             <span className="hidden lg:block">{user.user}</span>
+            <span className="hidden lg:block">{user.suscription}</span>
+            <span className="hidden lg:block">{user.vacants}</span>
           </NavLink>
         </div>
 
