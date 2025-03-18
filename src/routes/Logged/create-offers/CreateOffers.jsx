@@ -41,6 +41,7 @@ export const CreateOffers = ({ user, token }) => {
       navigate("/offers");
     } else {
       toast.error(data.message);
+      console.log(JSON.stringify(body));
     }
   };
 
@@ -141,10 +142,7 @@ export const CreateOffers = ({ user, token }) => {
       <div>
         <form onSubmit={handleSubmit} className="space-y-3">
           <div>
-            <label
-              htmlFor="title"
-              className="block text-gray-700 font-semibold "
-            >
+            <label htmlFor="title" className="block text-gray-700 font-semibold">
               Nombre vacante
             </label>
             <input
@@ -153,15 +151,12 @@ export const CreateOffers = ({ user, token }) => {
               onChange={handleOnChange}
               type="text"
               name="title"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="description"
-              className="block text-gray-700 font-semibold "
-            >
+            <label htmlFor="description" className="block text-gray-700 font-semibold">
               Descripción vacante
             </label>
             <textarea
@@ -169,16 +164,13 @@ export const CreateOffers = ({ user, token }) => {
               value={form.description}
               onChange={handleOnChange}
               name="description"
-              placeholder="descripcion..."
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
+              placeholder="Descripción..."
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
             ></textarea>
           </div>
 
           <div>
-            <label
-              htmlFor="area"
-              className="block text-gray-700 font-semibold "
-            >
+            <label htmlFor="area" className="block text-gray-700 font-semibold">
               Área de la vacante
             </label>
             <input
@@ -187,15 +179,12 @@ export const CreateOffers = ({ user, token }) => {
               onChange={handleOnChange}
               type="text"
               name="area"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="experience"
-              className="block text-gray-700 font-semibold "
-            >
+            <label htmlFor="experience" className="block text-gray-700 font-semibold">
               Experiencia requerida
             </label>
             <input
@@ -204,15 +193,12 @@ export const CreateOffers = ({ user, token }) => {
               onChange={handleOnChange}
               type="text"
               name="experience"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="country"
-              className="block text-gray-700 font-semibold "
-            >
+            <label htmlFor="country" className="block text-gray-700 font-semibold">
               País
             </label>
             <input
@@ -221,16 +207,13 @@ export const CreateOffers = ({ user, token }) => {
               onChange={handleOnChange}
               type="text"
               name="country"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="city"
-              className="block text-gray-700 font-semibold "
-            >
-              Distrito
+            <label htmlFor="city" className="block text-gray-700 font-semibold">
+              Ciudad
             </label>
             <input
               required
@@ -238,32 +221,12 @@ export const CreateOffers = ({ user, token }) => {
               onChange={handleOnChange}
               type="text"
               name="city"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
             />
           </div>
 
           <div>
-            <label
-              htmlFor="region"
-              className="block text-gray-700 font-semibold "
-            >
-              Corregimiento
-            </label>
-            <input
-              required
-              value={form.region}
-              onChange={handleOnChange}
-              type="text"
-              name="region"
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
-            />
-          </div>
-
-          <div>
-            <label
-              htmlFor="availability"
-              className="block text-gray-700 font-semibold "
-            >
+            <label htmlFor="availability" className="block text-gray-700 font-semibold">
               Disponibilidad requerida
             </label>
             <select
@@ -271,63 +234,70 @@ export const CreateOffers = ({ user, token }) => {
               value={form.availability}
               name="availability"
               onChange={handleOnChange}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
             >
-              <option selected disabled value="">
-                Selecciona una disponibilidad
-              </option>
+              <option selected disabled value="">Selecciona una disponibilidad</option>
               <option value="remoto">Remoto</option>
               <option value="presencial">Presencial</option>
-              <option value="hibrido">Hibrido</option>
+              <option value="hibrido">Híbrido</option>
             </select>
           </div>
 
           <div>
-            <label
-              htmlFor="salary"
-              className="block text-gray-700 font-semibold "
-            >
-              Salario en dólares
+            <label htmlFor="currency" className="block text-gray-700 font-semibold">
+              Moneda
             </label>
             <select
               required
-              value={form.salary}
-              name="salary"
+              value={form.currency}
+              name="currency"
               onChange={handleOnChange}
-              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
             >
-              <option selected disabled value="">
-                Selecciona un salario
-              </option>
-              <option value="200-500">$200-$500</option>
-              <option value="600-1000">$600-$1000</option>
-              <option value="1100-1500">$1100-$1500</option>
-              <option value="1600-2000">$1600-$2000</option>
-              <option value="2000-3000">$2000-$3000</option>
-              <option value="3500">Más de $3500</option>
+              <option selected disabled value="">Selecciona una moneda</option>
+              <option value="USD">US Dollars</option>
+              <option value="MXN">Peso Mexicano</option>
+              <option value="COP">Peso Colombiano</option>
+              <option value="CRC">Colón de Costa Rica</option>
             </select>
           </div>
 
-          <div className="pb-4">
-            <fieldset>
-              <label
-                htmlFor="languajes"
-                className="block text-gray-700 font-semibold "
-              >
-                Idiomas:
-              </label>
-              <input
-                required
-                value={form.languajes}
-                onChange={handleOnChange}
-                type="text"
-                name="languajes"
-                className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary "
-              />
-            </fieldset>
+          <div>
+            <label htmlFor="salary" className="block text-gray-700 font-semibold">
+              Salario
+            </label>
+            <input
+              required
+              value={form.salary}
+              onChange={handleOnChange}
+              type="number"
+              name="salary"
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
+            />
           </div>
-          <div className="flex justify-end ">
-            <button type="submit" className="buttonPrimary  w-full lg:w-auto ">
+
+          <div className="pb-4">
+            <label htmlFor="languajes" className="block text-gray-700 font-semibold">
+              Idiomas
+            </label>
+            <select
+              required
+              value={form.languajes}
+              name="languajes"
+              onChange={handleOnChange}
+              className="w-full p-2 border border-gray-300 rounded-md focus:outline-primary"
+            >
+              <option selected disabled value="">Selecciona un idioma</option>
+              <option value="ingles">Inglés</option>
+              <option value="espanol">Español</option>
+              <option value="frances">Francés</option>
+              <option value="portugues">Portugués</option>
+              <option value="chino">Chino Mandarín</option>
+            </select>
+          </div>
+
+          <div className="flex justify-end">
+            <button type="submit" className="buttonPrimary w-full lg:w-auto">
               Crear Vacante
             </button>
           </div>

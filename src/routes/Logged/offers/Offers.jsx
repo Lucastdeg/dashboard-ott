@@ -362,7 +362,7 @@ export const Offers = ({ user, token }) => {
               <h4 className="text-lg font-semibold text-primary ">
                 Ubicación:
               </h4>
-              <p className="text-gray-600">{`${offer?.city}, ${offer?.region}, ${offer?.country}`}</p>
+              <p className="text-gray-600">{`${offer?.city}, ${offer?.country}`}</p>
             </div>
             <div>
               <h4 className="text-lg font-semibold text-primary ">Salario:</h4>
