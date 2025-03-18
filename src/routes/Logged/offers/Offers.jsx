@@ -304,7 +304,7 @@ export const Offers = ({ user, token }) => {
               </p>
               <p className="text-lg text-primary font-semibold mt-2 mb-1">
                 Salario:{" "}
-                <span className="text-secondary">{offer.salary} €</span>
+                <span className="text-secondary">{offer.salary}</span>
               </p>
               <div className="flex flex-col space-y-1">
                 <p className="text-xs text-gray-500">
@@ -367,7 +367,7 @@ export const Offers = ({ user, token }) => {
             <div>
               <h4 className="text-lg font-semibold text-primary ">Salario:</h4>
               <p className=" text-xl font-bold text-secondary">
-                {offer?.salary} €
+                {offer?.salary} 
               </p>
             </div>
             <div>
