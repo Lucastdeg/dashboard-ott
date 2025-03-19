@@ -69,7 +69,7 @@ export const Bot = ({ user, token }) => {
     }));
 
     params.append("users", JSON.stringify(users));
-    params.append("offers", JSON.stringify(offers));
+    params.append("offer", JSON.stringify(offers));
 
     const response = await fetch(
       "https://minichatbot.com:4900/api/results/get-results",
@@ -83,15 +83,18 @@ export const Bot = ({ user, token }) => {
     );
 
     const data = await response.json();
+
     if (data.status !== "success") {
       console.error(data.message);
+    } else {
+      setReady(true);
     }
   };
 
-  useEffect(() => {
+  /*useEffect(() => {
     getFetch();
     setReady(true);
-  }, []);
+  }, []);*/
 
   return (
     <>
@@ -102,18 +105,22 @@ export const Bot = ({ user, token }) => {
           </h1>
         </div>
       ) : (
-        ready && (
-          <div className="h-full w-full rounded-lg shadow-2xl xl:border border-gray-200 relative">
-            <div className="absolute xl:w-[80%] w-[75%] right-0">
-              <div className="text-center py-6">
-                <h1 className="xl:text-4xl text-lg font-bold text-gray-800 mb-4">
-                  ¡Bienvenido a nuestro Asistente Virtual!
-                </h1>
-                <p className="lg:text-lg text-sm text-gray-600 max-w-2xl mx-auto">
-                  Haz tus preguntas sobre los usuarios y las ofertas actuales, y el bot te dará toda la información que necesitas.
-                </p>
-              </div>
+        <div className="h-full w-full rounded-lg shadow-2xl xl:border border-gray-200 relative">
+          <div className="absolute xl:w-[80%] w-[75%] right-0">
+            <div className="text-center py-6">
+              <h1 className="xl:text-4xl text-lg font-bold text-gray-800 mb-4">
+                ¡Bienvenido a nuestro Asistente Virtual!
+              </h1>
+              <p className="lg:text-lg text-sm text-gray-600 max-w-2xl mx-auto">
+                Haz tus preguntas sobre los usuarios y las ofertas actuales, y el bot te dará toda la información que necesitas.
+              </p>
+              <button onClick={getFetch} className="buttonPrimary mt-4">
+                Preguntarle a la IA
+              </button>
             </div>
+          </div>
+
+          {ready && (
             <Iframe
               url="https://bot-bgps.netlify.app"
               width="100%"
@@ -122,8 +129,8 @@ export const Bot = ({ user, token }) => {
               className="xl:rounded-lg"
               position="relative"
             />
-          </div>
-        )
+          )}
+        </div>
       )}
     </>
   );
