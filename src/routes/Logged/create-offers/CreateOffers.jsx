@@ -296,6 +296,27 @@ export const CreateOffers = ({ user, token }) => {
             </select>
           </div>
 
+          <div className="pb-4">
+            <label htmlFor="fluency" className="block text-gray-700 font-semibold">
+              Nivel de Fluidez
+            </label>
+            <input
+              type="range"
+              min="1"
+              max="3"
+              step="1"
+              value={form.fluency}
+              name="fluency"
+              onChange={handleOnChange}
+              className="w-full"
+            />
+            <div className="flex justify-between text-sm text-gray-600">
+              <span>Principiante</span>
+              <span>Intermedio</span>
+              <span>Fluido</span>
+            </div>
+          </div>
+
           <div className="flex justify-end">
             <button type="submit" className="buttonPrimary w-full lg:w-auto">
               Crear Vacante

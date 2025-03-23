@@ -138,7 +138,7 @@ export const Register = () => {
                 )}
               </button>
             </div>
-            <Recaptcha sitekey="6LfXfPYqAAAAAPTLs2o_xQQVXLeY_ZE0mcbgZpGw" />
+            <Recaptcha sitekey="6Ley0PkqAAAAAGOqjeaqLjVDLyiQ6u4bociPVpBG" />
 
             <button type="submit" className="authSubmitButton">
               Register
