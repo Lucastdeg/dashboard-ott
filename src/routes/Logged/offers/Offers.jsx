@@ -206,6 +206,11 @@ export const Offers = ({ user, token }) => {
   };
 
   const showCv = async () => {
+    if (user.suscription === 'ninguna' || user.suscription === 'Null') {
+      alert('No cuentas con una suscripción para ver CVS');
+      return;
+    }
+    
     try {
       const response = await fetch(urlCv, {
         method: "GET",
@@ -217,7 +222,20 @@ export const Offers = ({ user, token }) => {
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
-        window.open(url, "_blank");
+        const isMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+        if (isMobile) {
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = "cv.pdf";
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } else {
+          window.open(url, "_blank");
+        }
+
+        window.URL.revokeObjectURL(url);
       } else {
         throw new Error("Error al obtener el PDF");
       }
@@ -367,7 +385,7 @@ export const Offers = ({ user, token }) => {
             <div>
               <h4 className="text-lg font-semibold text-primary ">Salario:</h4>
               <p className=" text-xl font-bold text-secondary">
-                {offer?.salary} 
+                {offer?.salary}
               </p>
             </div>
             <div>

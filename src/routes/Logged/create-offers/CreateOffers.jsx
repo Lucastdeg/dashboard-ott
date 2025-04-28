@@ -7,7 +7,7 @@ import { FaTimes } from "react-icons/fa";
 
 const stripePromise = loadStripe('pk_live_51JjwobEzghndPK9DBXgVwFRDp4FDSmYRvUrxFmVxjK7bnUqD9hHrD8yiPewbiBduwxfVUF1j1J4kEG8xbBmKFujc00U11wwfA2');
 
-export const CreateOffers = ({ user, token }) => {
+export const CreateOffers = ({ user, token, setUser }) => {
   const navigate = useNavigate();
   const initialForm = {
     title: "",
@@ -36,6 +36,7 @@ export const CreateOffers = ({ user, token }) => {
     const data = await response.json();
     if (data.status == "success") {
       closePopup();
+      await handleUpdateVacants();
       toast.success("Has creado la vacante de manera satisfactoria");
       setForm(initialForm);
       navigate("/offers");
@@ -54,7 +55,7 @@ export const CreateOffers = ({ user, token }) => {
     e.preventDefault();
 
     if (user.vacants <= 0) {
-      alert("No tienes permiso para crear vacantes");
+      toast.error("No tienes permiso para crear vacantes");
       return;
     }
 
@@ -62,6 +63,41 @@ export const CreateOffers = ({ user, token }) => {
       `https://dashboard-ofrecetutalento.com:3100/api/offer/create-offer/${user._id}`,
       form
     );
+  };
+
+  const handleUpdateVacants = async () => {
+  
+    const vacants = user.vacants - 1
+
+    const data = {
+      vacants: parseInt(vacants, 10),
+    };
+
+    try {
+      const response = await fetch(
+        `https://dashboard-ofrecetutalento.com:3100/api/recruiter/update/${user._id}`,
+        {
+          method: "PUT",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+          body: JSON.stringify(data),
+        }
+      );
+
+      if (!response.ok) {
+        throw new Error("Error al actualizar el usuario");
+      }
+
+      setUser(prev => ({
+        ...prev,
+        vacants: vacants,
+      }));
+
+    } catch (error) {
+      console.error("Error en la actualización:", error);
+    }
   };
 
   const CheckoutForm = () => {

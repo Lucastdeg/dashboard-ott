@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { NavLink, useNavigate } from "react-router-dom";
 import Recaptcha from "react-google-recaptcha";
 
 import {
@@ -13,6 +14,7 @@ import {
 import { toast } from "react-toastify";
 
 export const Register = () => {
+  const navigate = useNavigate();
   const initialForm = {
     name: "",
     lastname: "",
@@ -40,6 +42,7 @@ export const Register = () => {
     if (data.status == "success") {
       toast.success("Te has registrado de manera satisfactoria");
       setForm(initialForm);
+      navigate("/login");
     } else {
       toast.error(data.message);
     }
@@ -143,6 +146,12 @@ export const Register = () => {
               Register
             </button>
           </form>
+          <p className="text-gray-500">
+            ¿Ya tienes una cuenta?{" "}
+            <NavLink to="/login" className="text-secondary ">
+              Inicia Sesión
+            </NavLink>
+          </p>
         </div>
       </div>
     </>

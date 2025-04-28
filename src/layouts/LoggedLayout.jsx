@@ -11,7 +11,7 @@ import { Navbar } from "../components/navbar/Navbar";
 import { Header } from "../components/header/Header";
 import Entrevistas from "../routes/Logged/entrevistas/Entrevistas";
 
-export const LoggedLayout = ({ setLoged, user, token }) => {
+export const LoggedLayout = ({ setLoged, user, token, setUser }) => {
   const [isOpenMobilMenu, setIsOpenMobilMenu] = useState(false);
   const location = useLocation();
   return (
@@ -49,7 +49,7 @@ export const LoggedLayout = ({ setLoged, user, token }) => {
 
             <Route
               path="/create-offers"
-              element={<CreateOffers user={user} token={token} />}
+              element={<CreateOffers user={user} token={token} setUser={setUser} />}
             ></Route>
             <Route
               path="/offers"

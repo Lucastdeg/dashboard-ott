@@ -17,6 +17,7 @@ export const App = () => {
           setLoged={setLoged}
           user={user}
           token={token}
+          setUser={setUser}
         ></LoggedLayout>
       ) : (
         <UnloggedLayout

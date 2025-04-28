@@ -244,7 +244,7 @@ export const General = ({ user, token }) => {
   };
 
   const showCv = async () => {
-    if (user.suscription === 'ninguna') {
+    if (user.suscription === 'ninguna' || user.suscription === 'Null') {
       alert('No cuentas con una suscripción para ver CVS');
       return;
     }
@@ -260,7 +260,21 @@ export const General = ({ user, token }) => {
       if (response.ok) {
         const blob = await response.blob();
         const url = window.URL.createObjectURL(blob);
+        
+        const isMobile = /iPhone|iPad|iPod/i.test(navigator.userAgent);
+
+      if (isMobile) {
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = "cv.pdf";
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } else {
         window.open(url, "_blank");
+      }
+
+        window.URL.revokeObjectURL(url);
       } else {
         throw new Error("Error al obtener el PDF");
       }

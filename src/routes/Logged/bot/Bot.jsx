@@ -98,7 +98,7 @@ export const Bot = ({ user, token }) => {
 
   return (
     <>
-      {user.suscription === "ninguna" ? (
+      {user.suscription === "ninguna" || user.suscription === "Null" ? (
         <div className="text-center py-6">
           <h1 className="text-2xl font-bold text-gray-800">
             No cuentas con una suscripción para acceder al bot
