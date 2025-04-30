@@ -48,7 +48,6 @@ export const Offers = ({ user, token }) => {
   }, []);
 
   const getFetch = async () => {
-    const params = new URLSearchParams();
 
     const users = listCandidates.map((user) => ({
       name: user.name,
@@ -57,17 +56,29 @@ export const Offers = ({ user, token }) => {
       languajes: user.languaje,
     }));
 
-    params.append("users", JSON.stringify(users));
-    params.append("offer", JSON.stringify(offer));
+    const offers = {
+      title: offer.title,
+      description: offer.description,
+      area: offer.area,
+      experience: offer.experience,
+      languajes: offer.languajes,
+    };
+
+    const body = {
+      users,
+      offer: offers,
+    };
+
+    console.log(body);
 
     const response = await fetch(
-      "https://minichatbot.com:4900/api/results/get-results",
+      "https://dashboard-ofrecetutalento.com:4900/api/results/get-results",
       {
         method: "POST",
         headers: {
-          "Content-Type": "application/x-www-form-urlencoded",
+          "Content-Type": "application/json",
         },
-        body: params.toString(),
+        body: JSON.stringify(body),
       }
     );
 
@@ -487,7 +498,7 @@ export const Offers = ({ user, token }) => {
           <FaTimes className="w-6 h-6" />
         </button>
         <Iframe
-          url="https://bot-bgps.netlify.app"
+          url="https://bot-ott.netlify.app/"
           width="100%"
           height="100%"
           display="initial"
