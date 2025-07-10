@@ -8,6 +8,7 @@ import {
   FaRobot,
   FaLockOpen,
   FaClipboardList,
+  FaCog,
 } from "react-icons/fa";
 import { useEffect } from "react";
 
@@ -27,6 +28,7 @@ const links = [
   { icon: FaClipboardList, title: "Entrevistas", path: "/entrevistas" },
   { icon: FaPortrait, title: "Perfil", path: "/profile" },
   { icon: FaRobot, title: "Bot", path: "/bot" },
+  { icon: FaCog, title: "AI Agent (Beta)", path: "/ai-agent" },
 ];
 
 export const Navbar = ({ setLoged, setIsOpenMobilMenu, isOpenMobilMenu }) => {

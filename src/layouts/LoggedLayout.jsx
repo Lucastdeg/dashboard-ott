@@ -6,6 +6,7 @@ import { CreateOffers } from "../routes/Logged/create-offers/CreateOffers";
 import { Offers } from "../routes/Logged/offers/Offers";
 import { Profile } from "../routes/Logged/profile/Profile";
 import { Bot } from "../routes/Logged/bot/Bot";
+import { AI_Agent } from "../routes/Logged/agent/AI_Agent";
 
 import { Navbar } from "../components/navbar/Navbar";
 import { Header } from "../components/header/Header";
@@ -68,6 +69,11 @@ export const LoggedLayout = ({ setLoged, user, token, setUser }) => {
             <Route
               path="/bot"
               element={<Bot user={user} token={token} />}
+            ></Route>
+
+            <Route
+              path="/ai-agent"
+              element={<AI_Agent user={user} token={token} />}
             ></Route>
 
             <Route path="/*" element={<Navigate to="/general" />}></Route>

@@ -1,0 +1,192 @@
+[
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBJCOUQ5MkQ5RDkxQzlDNEQ0RjEA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "Hey Carlos, how's it going? 😊 Just a quick message to say hi and to tell you we're looking forward to our online interview tomorrow. Looking forward to getting to know more about your work with React! Catch you then!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:30:32.319Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:30:32.319Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBIzRjVCNDY5MEIyNkM2MzVEOUMA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "\"Hey Carlos! Just a quick one to confirm our interview for tomorrow at 10:00. It will be online via Google Meet. I'll send you the link soon. Looking forward to it. Cheers!\"",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:31:47.576Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:31:47.578Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBJCREREMDA4NTJEN0NDOUEyNUMA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "Hey Ana, hope you're doing great! I've been checking out your profile and your experience with Node.js and MongoDB stands out. When would you be free for a chat about the Backend Developer role you applied for? Thanks!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:31:48.206Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:31:48.207Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBIyNjZEM0VGOTc1NTc5MTMyQjMA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "Hi María, hope you're doing well! We've been reviewing your impressive portfolio and experience as a UX Designer. Just wanted to check in with you - when would you be available for an interview? Looking forward to your reply!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:31:49.018Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:31:49.020Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBIxMkM5MjRFQTU4MzM2Mjc4N0EA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "Hey David, hope you're well! I came across your profile and was impressed with your DevOps experience. However, it seems there's a bit of a mismatch on the salary front. Would you be open to discussing this further? Cheers!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:31:49.639Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:31:49.640Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBJGRTkxQzBCMkFFOTUwODMwRDAA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "Hi Laura, hope you're well! Just finished reviewing your interview and I must say, we're really impressed by your product management skills. Could you let us know when you're available for a follow-up chat? Looking forward to hearing from you.",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:31:50.348Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:31:50.349Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3OTQ3MDcVAgARGBIxNjNDRDdFQkNCNEEzOUQxRjkA",
+    "from": "421028881094544",
+    "to": "+50766794707",
+    "message": "Hey Juan Pablo, how's it going? This is just a test message from our AI Agent. If you receive this, it means everything is working well. Thanks!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:37:52.238Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:37:52.240Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBJERjlCMzE4REMzNzg4RjIwRDAA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "\"Hey David, hope you're doing great! Just wanted to let you know that we've reviewed your application for the DevOps Engineer position. Unfortunately, your salary expectations were a bit too high for what we can offer at the moment. We really appreciate your interest and your impressive skills. Keep us in mind for future opportunities. Cheers!\"",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:40:30.389Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:40:30.389Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBJGNjEzNzM3MzVBREE1MzY5ODQA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "Hi Laura! Just a quick test message from our recruitment team's AI assistant. If you're receiving this, it means everything is working well. Have a fantastic day ahead!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:49:59.402Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:49:59.403Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3OTQ3MDcVAgARGBJENEQyNzE1RkUwOERBMUQzODYA",
+    "from": "421028881094544",
+    "to": "+50766794707",
+    "message": "Hey Juan Pablo! Just a quick message from the recruitment team to test our system. If you're reading this, it means everything's working perfectly. Thanks a bunch!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:50:22.234Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:50:22.235Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3OTM3MDAVAgARGBIyQzZDREJERjIwQTgxMzBGRDcA",
+    "from": "421028881094544",
+    "to": "+50766793700",
+    "message": "\"Hey Ana, hope you're doing great! I noticed you have solid experience with Node.js and MongoDB. Could you also tell me a little more about your experience with Docker and AWS? Cheers!\"",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:54:04.476Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:54:04.477Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3OTM3MDAVAgARGBJGNEQxQ0YyMkNDQzkwQzNCNEQA",
+    "from": "421028881094544",
+    "to": "+50766793700",
+    "message": "Hey Ana, how's it going? I'm just going through your application for our Backend Developer role and I'm quite impressed with your Node.js and MongoDB skills! Could you tell me a bit more about your experience with Docker and AWS? Thanks!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:54:48.070Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:54:48.070Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3OTM3MDAVAgARGBJEMzE4OEQzNTJFNTkwNzY0NDAA",
+    "from": "421028881094544",
+    "to": "+50766793700",
+    "message": "\"Hola Ana, ¡espero que estés bien! He estado revisando tu perfil y noté tu sólida experiencia con Node.js y MongoDB. ¿Podrías contarme un poco más sobre tu experiencia con Docker y AWS? ¡Gracias!\"",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:55:27.794Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:55:27.795Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3OTQ3MDcVAgARGBIyQjY3MjY4NDk2RkNGNDRFQzkA",
+    "from": "421028881094544",
+    "to": "+50766794707",
+    "message": "¡Hola Juan Pablo! Solo un recordatorio rápido de tu entrevista programada para hoy a las 10:00. ¡Estamos emocionados de hablar contigo y aprender más sobre tu experiencia como desarrollador frontend! ¡Nos vemos pronto!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:56:16.451Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:56:16.451Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3OTQ3MDcVAgARGBIzNkU5NjY1NTBBRDRDNjQxOTcA",
+    "from": "421028881094544",
+    "to": "+50766794707",
+    "message": "¡Hola Juan Pablo! Lamento la confusión, pero parece que hubo un pequeño error en el horario de la entrevista. La entrevista está programada para hoy a las 3 p.m., no a las 10 a.m. Espero que esto no te cause ningún inconveniente. ¡Hasta entonces!",
+    "type": "outgoing",
+    "timestamp": "2025-06-19T21:57:02.634Z",
+    "status": "sent",
+    "saved_at": "2025-06-19T21:57:02.635Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBI0NjBGMDQxMTIyNjMwMEI0RjgA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "hello",
+    "type": "outgoing",
+    "timestamp": "2025-07-01T14:21:32.505Z",
+    "status": "sent",
+    "saved_at": "2025-07-01T14:21:32.522Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBI3RTk5NzE4MjUwNkNFNkMxQTcA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "Hello, how are you doing?",
+    "type": "outgoing",
+    "timestamp": "2025-07-01T14:25:20.570Z",
+    "status": "sent",
+    "saved_at": "2025-07-01T14:25:20.571Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBI2QjkzRkU1NEJCNEEzNjE1MjUA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "hola",
+    "type": "outgoing",
+    "timestamp": "2025-07-02T05:04:56.671Z",
+    "status": "sent",
+    "saved_at": "2025-07-02T05:04:56.673Z"
+  },
+  {
+    "id": "wamid.HBgLNTA3NjY3NTYwODEVAgARGBJBNkNFNzAyNjJCMzE2QUIxQUUA",
+    "from": "421028881094544",
+    "to": "+50766756081",
+    "message": "Hola como estas",
+    "type": "outgoing",
+    "timestamp": "2025-07-09T16:17:59.179Z",
+    "status": "sent",
+    "saved_at": "2025-07-09T16:17:59.201Z"
+  }
+]
